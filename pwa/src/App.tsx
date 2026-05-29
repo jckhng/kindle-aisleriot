@@ -37,19 +37,19 @@ const SUIT_SYMS = ["♥", "♦", "♣", "♠"];
 const RANK_LABELS = ["?", "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 function isRed(suit: Suit): boolean { return suit === 0 || suit === 1; }
 
-// bonded.svg layout: 79×123 unit cells, 13 cols (A-K) × 5 rows (clubs/diamonds/hearts/spades/special).
-const CELL_W = 79, CELL_H = 123;
+// bonded.png layout: 13 cols (A-K) × 5 rows (clubs/diamonds/hearts/spades/special).
+const SPRITE_COLS = 13, SPRITE_ROWS = 5;
 const SUIT_TO_ROW = [2, 1, 0, 3]; // 0=hearts→row2, 1=diamonds→row1, 2=clubs→row0, 3=spades→row3
 const BACK_COL = 2, BACK_ROW = 4;
 
-// Inline-SVG region of bonded.svg. Inline <use> renders embedded data: PNG face-card pictures
-// reliably; the background-image approach drops them in some browsers' SVG-as-image sandbox.
+// Render a scaled cell from the bonded PNG sprite so the original deck follows
+// the same responsive card dimensions as the simplified theme.
 function BondedRegion({ col, row }: { col: number; row: number }) {
   return (
     <div
       style={{
-        width: CELL_W,
-        height: CELL_H,
+        position: "absolute",
+        inset: 0,
         overflow: "hidden",
       }}
     >
@@ -57,10 +57,11 @@ function BondedRegion({ col, row }: { col: number; row: number }) {
         src={`${PUBLIC_BASE}bonded.png`}
         alt=""
         style={{
-          width: `${CELL_W * 13}px`,
-          height: `${CELL_H * 5}px`,
-          objectPosition: `-${col * CELL_W}px -${row * CELL_H}px`,
-          objectFit: "none",
+          position: "absolute",
+          width: `${SPRITE_COLS * 100}%`,
+          height: `${SPRITE_ROWS * 100}%`,
+          left: `${-col * 100}%`,
+          top: `${-row * 100}%`,
           display: "block",
         }}
       />

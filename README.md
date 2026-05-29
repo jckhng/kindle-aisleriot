@@ -2,7 +2,7 @@
 
 A practical Kindle-friendly Windows Solitaire-style Klondike app inspired by
 GNOME Aisleriot, using GTK2/Cairo and the same Mesquite/KUAL packaging approach
-as Kindle GlChess.
+as Exact Chess.
 
 This v0.1.0 port intentionally takes the practical path: it targets familiar
 Windows Solitaire/Klondike play for Kindle instead of trying to embed the full
