@@ -46,16 +46,27 @@ const BACK_COL = 2, BACK_ROW = 4;
 // reliably; the background-image approach drops them in some browsers' SVG-as-image sandbox.
 function BondedRegion({ col, row }: { col: number; row: number }) {
   return (
-    <svg
-      viewBox={`${col * CELL_W} ${row * CELL_H} ${CELL_W} ${CELL_H}`}
-      preserveAspectRatio="xMidYMid meet"
-      style={{ width: "100%", height: "100%", display: "block" }}
+    <div
+      style={{
+        width: CELL_W,
+        height: CELL_H,
+        overflow: "hidden",
+      }}
     >
-      <use href={`${PUBLIC_BASE}bonded.svg`} />
-    </svg>
+      <img
+        src={`${PUBLIC_BASE}bonded.png`}
+        alt=""
+        style={{
+          width: `${CELL_W * 13}px`,
+          height: `${CELL_H * 5}px`,
+          objectPosition: `-${col * CELL_W}px -${row * CELL_H}px`,
+          objectFit: "none",
+          display: "block",
+        }}
+      />
+    </div>
   );
 }
-
 function lcgNext(state: number): number { return (Math.imul(state, 1664525) + 1013904223) >>> 0; }
 
 function clonePile(p: Pile): Pile { return { cards: p.cards.map(c => ({ ...c })) }; }
